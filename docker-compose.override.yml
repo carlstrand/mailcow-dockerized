@@ -1,0 +1,15 @@
+version: '2.1'
+services:
+    portainer-mailcow:
+      image: portainer/portainer
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - ./data/conf/portainer:/data
+      restart: always
+      dns:
+        - 172.22.1.254
+      dns_search: mailcow-network
+      networks:
+        mailcow-network:
+          aliases:
+            - portainer
