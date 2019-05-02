@@ -1,33 +1,27 @@
 #!/bin/bash
 
-apt install git
+apt install git php
 
-git clone https://github.com/roundcube/roundcubemail && cd roundcubemail
+git clone https://github.com/roundcube/roundcubemail
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/tmp/
 
-bin/install-jsdeps.sh
-bin/jsshrink.sh
+roundcubemail/bin/install-jsdeps.sh
+roundcubemail/bin/jsshrink.sh
 
-cd skins/elastic
+lessc -x roundcubemail/skins/elastic/styles/styles.less > roundcubemail/skins/elastic/styles/styles.css
+lessc -x roundcubemail/skins/elastic/styles/print.less > roundcubemail/skins/elastic/styles/print.css
+lessc -x roundcubemail/skins/elastic/styles/embed.less > roundcubemail/skins/elastic/styles/embed.css
 
-lessc -x styles/styles.less > styles/styles.css
-lessc -x styles/print.less > styles/print.css
-lessc -x styles/embed.less > styles/embed.css
+roundcubemail/bin/updatecss.sh
+roundcubemail/bin/cssshrink.sh
 
-cd ../..
+rm roundcubemail/bin/transifexpull.sh roundcubemail/bin/package2composer.sh roundcubemail/bin/importgettext.sh roundcubemail/bin/exportgettext.sh roundcubemail/README.md roundcubemail/INSTALL roundcubemail/UPGRADING, roundcubemail/LICENSE, roundcubemail/CHANGELOG
+rm -rf roundcubemail/tests/ roundcubemail/public_html/ roundcubemail/installer/ roundcubemail/.git* .tx*
 
-bin/updatecss.sh
-bin/cssshrink.sh
-
-rm transifexpull.sh package2composer.sh importgettext.sh exportgettext.sh README.md INSTALL UPGRADING, LICENSE, CHANGELOG
-rm -rf tests/ public_html/ installer/ .git* .tx*
-
-cp composer.json-dist composer.json
+cp roundcubemail/composer.json-dist roundcubemail/composer.json
 
 php /tmp/composer.phar install --prefer-dist --no-dev
 
-cd ../
-
+mkdir data/web/rc
 mv roundcubemail data/web/rc
 chown -R root: data/web/rc/
-
