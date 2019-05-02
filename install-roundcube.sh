@@ -22,6 +22,6 @@ cp roundcubemail/composer.json-dist roundcubemail/composer.json
 
 php /tmp/composer.phar install --prefer-dist --no-dev
 
-mkdir data/web/rc
-mv roundcubemail data/web/rc
-chown -R root: data/web/rc/
+mkdir /opt/mailcow-dockerized/data/web/rc
+mv roundcubemail /opt/mailcow-dockerized/data/web/rc
+chown -R root: /opt/mailcow-dockerized/data/web/rc/
