@@ -2,7 +2,7 @@
 
 add-apt-repository ppa:linuxuprising/java
 apt update
-apt install oracle-java11-installer git php php-pear unzip file -y
+apt install oracle-java11-installer git php php-pear php-mbstring unzip file -y
 
 git clone https://github.com/roundcube/roundcubemail
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/tmp/
