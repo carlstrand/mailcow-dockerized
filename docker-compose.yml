@@ -266,7 +266,7 @@ services:
         - sogo-mailcow
         - php-fpm-mailcow
         - redis-mailcow
-      image: nginx:mainline-alpine
+      image: fholzer/nginx-brotli
       command: /bin/sh -c "envsubst < /etc/nginx/conf.d/templates/listen_plain.template > /etc/nginx/conf.d/listen_plain.active &&
         envsubst < /etc/nginx/conf.d/templates/listen_ssl.template > /etc/nginx/conf.d/listen_ssl.active &&
         envsubst < /etc/nginx/conf.d/templates/server_name.template > /etc/nginx/conf.d/server_name.active &&
